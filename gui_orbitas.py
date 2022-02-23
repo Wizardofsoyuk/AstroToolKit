@@ -1,33 +1,38 @@
 import tkinter as tk
 from tkinter.ttk import LabelFrame
+
+from matplotlib import image
 import modulos as md
 from PIL import ImageTk, Image
 import os
 
 def GUI():
+    imagen_status =False
     memoria = []
     counter_planet=1
     def acumular_planetas():
         dato = [float(ent_excentricidad.get()),float(ent_semiejemayor.get()),ent_Name.get()]
         memoria.append(dato)
         caja_de_texto.configure(state="normal")
-        caja_de_texto.insert(f"{counter_planet}.0",f"\nCuerpo: {ent_Name.get()} | Excentricidad: {ent_excentricidad.get()} | Semieje Mayor: {ent_semiejemayor.get()}")
+        caja_de_texto.insert(f"{counter_planet}.0",f"\nCuerpo: {ent_Name.get()} | Excentricidad: {ent_excentricidad.get()} | Semieje Mayor: {ent_semiejemayor.get()} UA")
         caja_de_texto.configure(state="disabled")
 
-
     def limpiar():
+        nonlocal imagen_status
         ent_excentricidad.delete(0, tk.END)
         ent_semiejemayor.delete(0, tk.END)
         ent_Name.delete(0, tk.END)
         memoria.clear()
-        panel.pack_forget()
-        frame_imagen.pack_forget()
+        if imagen_status == True:
+            panel.pack_forget()
+            frame_imagen.pack_forget()
+            imagen_status =False
         caja_de_texto.configure(state="normal")
         caja_de_texto.delete("1.0", tk.END)
         caja_de_texto.configure(state="disabled")
-
     
     def colocar_orbita():
+        nonlocal imagen_status
         if len(memoria) == 0:
             e=float(ent_excentricidad.get())
             a=float(ent_semiejemayor.get())
@@ -38,7 +43,8 @@ def GUI():
             for dato in memoria:
                 database_mini = md.calcular_posiciones_orbit(dato[0],dato[1],dato[2])
                 database.append(database_mini)
-        
+        if imagen_status == True:
+            limpiar()
         global frame_imagen 
         frame_imagen= tk.Frame()
         frame_imagen.pack(fill=tk.X, ipadx=5, ipady=5)
@@ -48,6 +54,7 @@ def GUI():
         panel = tk.Label(frame_imagen,image=img)
         panel.image=img
         panel.pack()
+        imagen_status=True
 
     ventana = tk.Tk()
     ventana.title("Graficador de Órbitas")
@@ -60,7 +67,7 @@ def GUI():
     ent_excentricidad = tk.Entry(master=frame_entradas,width= 50)
     ent_excentricidad.grid(row=0,column=1)
 
-    lbl_semiejemayor = tk.Label(master= frame_entradas, text="Coloque su valor de semiejemayor(UA): ", font="Helvetica 12")
+    lbl_semiejemayor = tk.Label(master= frame_entradas, text="Coloque su valor del semieje mayor (UA): ", font="Helvetica 12")
     lbl_semiejemayor.grid(row=1,column= 0,sticky = "e")
     ent_semiejemayor = tk.Entry(master=frame_entradas,width= 50)
     ent_semiejemayor.grid(row=1,column=1)
@@ -87,5 +94,6 @@ def GUI():
     ventana.resizable(False, False) 
     ventana.mainloop()
 
+GUI()
 
 

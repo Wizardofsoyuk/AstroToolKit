@@ -59,8 +59,5 @@ def menu():
                 click.echo("Abriendo la GUI, Por favor espere......")
                 GUI.GUI()
 
-
-                    
-
 pantalla_inicial()
 menu()
