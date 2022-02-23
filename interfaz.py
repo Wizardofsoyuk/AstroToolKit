@@ -2,7 +2,7 @@ import click, colorama
 from colorama import Fore, Back, Style
 from art import text2art
 import modulos as HAL
-
+import gui_orbitas as GUI
 colorama.init(autoreset=True)
 
 def pantalla_inicial():
@@ -22,7 +22,7 @@ def menu():
     eleccion=None
     while eleccion!="EXIT":
         click.clear()
-        opciones = ["1. Calculadora para solución numérica ejemplo 4.3"]
+        opciones = ["1. Calculadora para solución numérica ejemplo 4.3","2. Graficador de Órbitas"]
         nombre_menu = text2art("menu",font="smslant")
         click.echo(f"{Fore.LIGHTYELLOW_EX} {nombre_menu}")
         for n in opciones:
@@ -43,16 +43,24 @@ def menu():
                 click.clear()
                 subtitulo=text2art("Astro Tool Kit")
                 print(subtitulo)
-                click.echo(f"Bienvenido a la Calculadora para solución numérica ejemplo 4.3\nPara este programa puede elegir usar los datos default del ejemplo o usar los que usted desee")
+                click.echo(f"Bienvenido a la Calculadora para solución numérica ejemplo 4.3\nPara este programa puede elegir usar los datos default del ejemplo o usar los que usted desée")
+                print("\n")
                 click.pause()
                 choice=click.prompt("Escriba 1 si quiere usar sus propios datos y escriba 2 si quiere usar los usados en el problema")
                 resultado=HAL.calcular_masa_total_minima_launch(int(choice))
-                print(f"El resultado calculado es el siguiente: {round(resultado,3)} kg")
+                print(f"{Fore.LIGHTRED_EX}El resultado calculado es el siguiente: {round(resultado,3)} kg")
                 click.pause()
+            elif numero == 2:
+                click.clear()
+                subtitulo=text2art("Astro Tool Kit")
+                print(subtitulo)
+                click.echo(f"{Fore.YELLOW}Bievenido al Graficador de Órbitas!!\n")
+                click.pause()
+                click.echo("Abriendo la GUI, Por favor espere......")
+                GUI.GUI()
+
+
                     
-
-    
-
 
 pantalla_inicial()
 menu()
