@@ -96,7 +96,7 @@ def calcular_posiciones_orbit(e,a,nombre):
     resultado.append(nombre)
     return resultado
 
-def dibujar_orbita(databas:list):
+def dibujar_orbita(databas):
     fig = plt.figure()
     ax=fig.add_subplot()
     ax.set_title("Órbita solicitada")
@@ -107,8 +107,6 @@ def dibujar_orbita(databas:list):
     for n in databas:
         database = n
         linea,=ax.plot(database[0],database[1],'-',label = f"Trayectoria de la Orbita {database[6]}")
-        # ax.set_xlim([40,-40])
-        # ax.set_ylim([40,-40])
         ax.legend(loc='lower right',prop={'size': 6})
     point,=ax.plot(0,0,marker=8,color="red",label="Cuerpo en Orbita")
     def update_point(n, x, y,point):
@@ -117,11 +115,4 @@ def dibujar_orbita(databas:list):
     ani=animation.FuncAnimation(fig, update_point, fargs=(database[0], database[1], point),interval=1)
     writergif = animation.PillowWriter(fps=30) 
     ani.save("orbita.gif",writer=writergif)
-
-# calculo=calcular_posiciones_orbit(0.0167,1,"Tierra")
-# calculo2 = calcular_posiciones_orbit(0.96714,17.834,"Halley")
-# calculo3 = calcular_posiciones_orbit(0.0489,5.2044,"Jupiter")
-# datos = [calculo,calculo3,calculo2]
-# dibujar_orbita(datos)
-
 

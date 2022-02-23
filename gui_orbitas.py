@@ -49,7 +49,6 @@ def GUI():
         panel.image=img
         panel.pack()
 
-
     ventana = tk.Tk()
     ventana.title("Graficador de Órbitas")
 
@@ -85,5 +84,8 @@ def GUI():
     frame_texto.pack(fill=tk.X,ipadx=5,ipady=5)
     caja_de_texto = tk.Text(master=frame_texto,height=5,state='disabled',font="Helvetica 12")
     caja_de_texto.pack()
-
+    ventana.resizable(False, False) 
     ventana.mainloop()
+
+
+
